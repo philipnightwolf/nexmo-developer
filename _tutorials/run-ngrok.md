@@ -5,7 +5,7 @@ description: How to run Ngrok to test your application locally.
 
 <a name="how-to-run-ngrok"></a>
 
-If you do not already have Ngrok, learn how to get it [ running locally](https://developer.nexmo.com/concepts/guides/webhooks#using-ngrok-for-local-development).
+If you do not already have Ngrok, learn how to get it [running locally](https://developer.nexmo.com/concepts/guides/webhooks#using-ngrok-for-local-development).
 
 With the application's webhook URLs pointing to Ngrok, Ngrok will redirect the webhooks to your local machine through a secure tunnel for testing purposes.
 
