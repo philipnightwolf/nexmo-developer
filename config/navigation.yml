@@ -17,7 +17,8 @@ navigation_weight:
   getting-started: 1
   account-api: 2
   extension-api: 3
-  user-api: 4
+  reports-api: 4
+  user-api: 5
   integration-suite: 3
 
   onboarding: 0
@@ -28,6 +29,7 @@ navigation_weight:
   code-snippets: 5
 
   tutorials: 6
+  use-cases: 6
   troubleshooting: 7
   api-reference: 7
   conversation: 8
@@ -52,7 +54,7 @@ navigation_weight:
 navigation_overrides:
   application:
     svg: 'flow'
-    svgColor: 'indigo'
+    svgColor: 'blue'
   concepts:
     navigation_weight: 0
     svg: 'mind-map'
@@ -89,6 +91,8 @@ navigation_overrides:
   account:
     svg: 'user'
     svgColor: 'blue'
+    subaccounts:
+      label: 'Beta'
   redact:
     label: 'Dev Preview'
     svg: 'lock'
@@ -96,7 +100,13 @@ navigation_overrides:
   client-sdk:
     svg: 'queue'
     svgColor: 'teal'
-    label: 'Dev Preview'
+    label: 'Beta'
+    overview:
+      navigation_weight: 1
+    setup:
+      navigation_weight: 2
+    custom-events:
+      navigation_weight: 3
     sdk-documentation:
       link: false
       collapsible: false

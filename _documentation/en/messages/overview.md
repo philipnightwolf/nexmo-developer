@@ -27,7 +27,7 @@ The following diagram illustrates the relationship between the Messages API and 
 * [Getting started](#getting-started)
 * [Concepts](#concepts)
 * [Code Snippets](#code-snippets)
-* [Tutorials](#tutorials)
+* [Use Cases](#use-cases)
 * [Reference](#reference)
 
 ## Beta
@@ -45,12 +45,14 @@ In this release the following features are supported:
 Channel | Outbound Text | Outbound Image | Outbound Audio | Outbound Video | Outbound File | Outbound Template
 -- | -- | -- | -- | -- | -- | --
 SMS | ✅ | n/a | n/a | n/a | n/a | n/a
+MMS | ✅ | ✅ | n/a | n/a | n/a | n/a
 Viber Service Messages | ✅ | ✅ | n/a | n/a | n/a | ✅
 Facebook Messenger | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
-WhatsApp | ✅ | ✅ | ✅ | ❌ | ✅ | ✅
+WhatsApp | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
 
 Channel | Inbound Text | Inbound Image | Inbound Audio | Inbound Video | Inbound File | Inbound Location
 -- | -- | -- | -- | -- | -- | --
+MMS | ✅ | ✅ | n/a | n/a | n/a | n/a
 Facebook Messenger | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
 WhatsApp | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
 
@@ -95,9 +97,9 @@ product: messages
 product: messages
 ```
 
-## Tutorials
+## Use Cases
 
-```tutorials
+```use_cases
 product: messages
 ```
 

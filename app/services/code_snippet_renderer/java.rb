@@ -2,9 +2,9 @@ module CodeSnippetRenderer
   class Java < Base
     def self.dependencies(deps)
       {
-          'text' => t('services.code_snippet_renderer.add_instructions_to_file', file: 'build.gradle'),
-          'code' => deps.map { |d| "compile '#{d.gsub('@latest', '4.3.0')}'" }.join('<br />'),
-          'type' => 'groovy',
+        'text' => t('services.code_snippet_renderer.add_instructions_to_file', file: 'build.gradle'),
+        'code' => deps.map { |d| "compile '#{d.gsub('@latest', '5.1.0')}'" }.join('<br />'),
+        'type' => 'groovy',
       }
     end
 

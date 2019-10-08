@@ -5,8 +5,8 @@ class SidenavSubitem < SidenavItem
     @title ||= TitleNormalizer.call(@folder)
   end
 
-  def file?
-    @folder[:is_file?]
+  def show_link?
+    @folder[:is_file?] || @folder[:is_tabbed?]
   end
 
   def collapsible?
@@ -16,13 +16,17 @@ class SidenavSubitem < SidenavItem
   def url
     @url ||= begin
       if documentation?
-        url_for(
+        url = url_for(
           document: Navigation.new(@folder).path_to_url,
           controller: :markdown,
           action: :show,
           locale: I18n.locale,
           only_path: true
         )
+        url = "/#{@folder[:product]}#{url}" if @folder[:is_task?]
+        url
+      elsif @folder[:external_link]
+        @folder[:external_link]
       else
         "/#{Navigation.new(@folder).path_to_url}"
       end
@@ -31,10 +35,14 @@ class SidenavSubitem < SidenavItem
 
   def active?
     if navigation == :tutorials
-      url == "/#{product}/tutorials"
+      active_path.starts_with?(url)
     else
-      url == request_path
+      url == active_path
     end
+  end
+
+  def active_path
+    @active_path ||= request_path.chomp("/#{code_language}")
   end
 
   def link_css_class

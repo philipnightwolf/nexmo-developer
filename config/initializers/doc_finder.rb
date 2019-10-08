@@ -1,4 +1,6 @@
 DocFinder.configure do |config|
   config.paths << '_documentation'
+  config.paths << '_use_cases'
+  config.paths << 'config/tutorials'
   config.paths << 'app/views/product-lifecycle'
 end

@@ -23,7 +23,7 @@ In this document you can learn about:
 * [**How to Get Started with the Voice API**](#getting-started) including examples in your language
 * [Guides](#guides) learn about working with the Voice API
 * [Code Snippets](#code-snippets) code snippets to help with specific tasks
-* [Tutorials](#tutorials) detailed tutorials for some common use cases
+* [Use Cases](#use-cases) detailed use cases with code examples
 * [Reference](#reference) API documentation and other supporting content
 
 ## Concepts
@@ -50,7 +50,14 @@ More details are available in this blog post: [Meet Voice Playground, Your Testi
 
 The primary way that you'll interact with the Nexmo voice platform is via the [public API](/voice/voice-api/api-reference). To place an outbound call, you make a `POST` request to `https://api.nexmo.com/v1/calls`.
 
-To make this easier, we provide client libraries in various languages that take care of authentication and creating the correct request body for you. Choose your language below to get started.
+To make this easier, Nexmo provides Server SDKs in various languages that take care of authentication and creating the correct request body for you.
+
+To get started, choose your language below and replace the following variables in the example code:
+
+Key |	Description
+-- | --
+`NEXMO_NUMBER` |	Your Nexmo number that the call will be made from. For example `447700900000`.
+`TO_NUMBER` |	The number you would like to call to in E.164 format. For example `447700900001`.
 
 ```code_snippets
 source: '_examples/voice/make-an-outbound-call'
@@ -73,9 +80,9 @@ product: voice/voice-api
 product: voice/voice-api
 ```
 
-## Tutorials
+## Use Cases
 
-```tutorials
+```use_cases
 product: voice/voice-api
 ```
 

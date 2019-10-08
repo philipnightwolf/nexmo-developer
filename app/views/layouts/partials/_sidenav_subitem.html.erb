@@ -1,5 +1,5 @@
 <li class="navigation-item--<%= sidenav_subitem.title.parameterize %> navigation-item">
-  <% if sidenav_subitem.file? %>
+  <% if sidenav_subitem.show_link? %>
     <%= link_to(sidenav_subitem.url, class: "Vlt-sidemenu__link #{sidenav_subitem.link_css_class}") do %>
       <% if sidenav_subitem.label? %>
         <span class="Vlt-sidemenu__label">

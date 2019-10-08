@@ -22,7 +22,7 @@ Phone, SIP and Websocket Channels are enabled through the [Voice API](/voice/voi
 * [Getting started](#getting-started)
 * [Concepts](#concepts)
 * [Code Snippets](#code-snippets)
-* [Tutorials](#tutorials)
+* [Use Cases](#use-cases)
 * [Reference](#reference)
 
 ## Developer Preview
@@ -61,11 +61,13 @@ Code snippets provide ready to use samples of code so you can build out your app
 
 You could start by [Creating a Conversation](/conversation/code-snippets/conversation/create-conversation).
 
-## Tutorials
+## Use Cases
 
-```tutorials
+```use_cases
 product: conversation
 ```
+
+There is also a [Use Case](/client-sdk/in-app-voice/contact-center-overview) on how to build your own Contact Center.
 
 ## Reference
 

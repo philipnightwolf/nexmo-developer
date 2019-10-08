@@ -436,7 +436,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line20">line 20</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -457,6 +457,8 @@
 
     <li><a href="Member.html#event:media:stream:on">Member#media:stream:on</a></li>
 </ul>
+
+
 
 
 
@@ -549,7 +551,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line984">line 984</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line934">line 934</a>
     </li></ul></dd>
     
 
@@ -559,6 +561,8 @@
 
     
 </dl>
+
+
 
 
 
@@ -593,7 +597,7 @@
 <div class="description">
     Disable media participation in the conversation for this application
 if RtcStats MOS is enabled, a final report will be available in
-ConversationClient#rtcstats:report
+NexmoClient#rtcstats:report
 </div>
 
 
@@ -637,7 +641,7 @@ ConversationClient#rtcstats:report
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1326">line 1326</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1266">line 1266</a>
     </li></ul></dd>
     
 
@@ -647,6 +651,8 @@ ConversationClient#rtcstats:report
 
     
 </dl>
+
+
 
 
 
@@ -1102,7 +1108,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1260">line 1260</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1200">line 1200</a>
     </li></ul></dd>
     
 
@@ -1112,6 +1118,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -1154,180 +1162,27 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     <pre class="prettyprint"><code>function enable() {
   conversation.media.enable()
      .then((stream) => {
-                const media = document.createElement("audio");
-                const source = document.createElement("source");
-                const media_div = document.createElement("div");
-                media.appendChild(source);
-                media_div.appendChild(media);
-                document.insertBefore(media_div);
-                // Older browsers may not have srcObject
-                if ("srcObject" in media) {
-                    media.srcObject = stream;
-                } else {
-                    // Avoid using this in new browsers, as it is going away.
-                    media.src = window.URL.createObjectURL(stream);
-                }
-                media.onloadedmetadata = (e) => {
-                    media.play();
-                };
+              const media = document.createElement("audio");
+              const source = document.createElement("source");
+              const media_div = document.createElement("div");
+              media.appendChild(source);
+              media_div.appendChild(media);
+              document.insertBefore(media_div);
+              // Older browsers may not have srcObject
+              if ("srcObject" in media) {
+                media.srcObject = stream;
+              } else {
+                // Avoid using this in new browsers, as it is going away.
+                media.src = window.URL.createObjectURL(stream);
+              }
+              media.onloadedmetadata = (e) => {
+                media.play();
+              };
 
 		 }).catch((error) => {
           console.log(error);
       });
 }</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="fetchRecording"><span class="type-signature"></span>fetchRecording<span class="signature">(url)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Download the recoding file
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the recording url coming in the recording event</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1464">line 1464</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
 
 
 
@@ -1529,6 +1384,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
             
                 <td class="default">
                 
+                    null
+                
                 </td>
             
 
@@ -1573,7 +1430,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1152">line 1152</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1092">line 1092</a>
     </li></ul></dd>
     
 
@@ -1583,6 +1440,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -1622,7 +1481,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
 
     
-    <h4 class="name" id="playStream"><span class="type-signature"></span>playStream<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    <h4 class="name" id="playStream"><span class="type-signature"></span>playStream<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>>}</span></h4>
     
 
     
@@ -1674,7 +1533,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1491">line 1491</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1364">line 1364</a>
     </li></ul></dd>
     
 
@@ -1684,6 +1543,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -1708,7 +1569,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
+<span class="param-type">Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>></span>
 
 
     </dd>
@@ -1726,329 +1587,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
 
     
-    <h4 class="name" id="record"><span class="type-signature"></span>record<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Recording.html">Recording</a>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Record the audio stream in a conversation
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>format</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">= (mp3, wav, ogg)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>streamed</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>validity_time</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>beep_start</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>beep_stop</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">~</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>detect_speech</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1433">line 1433</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Recording.html">Recording</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>conversation.audio.record()</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sayText"><span class="type-signature"></span>sayText<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    <h4 class="name" id="sayText"><span class="type-signature"></span>sayText<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>>}</span></h4>
     
 
     
@@ -2290,7 +1829,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1349">line 1349</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1289">line 1289</a>
     </li></ul></dd>
     
 
@@ -2300,6 +1839,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -2324,7 +1865,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
+<span class="param-type">Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>></span>
 
 
     </dd>
@@ -2337,7 +1878,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>conversation.media.say({text:'hi'})</code></pre>
+    <pre class="prettyprint"><code>conversation.media.sayText({text:'hi'})</code></pre>
 
 
 
@@ -2347,7 +1888,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
 
     
-    <h4 class="name" id="sendDTMF"><span class="type-signature"></span>sendDTMF<span class="signature">(digits)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    <h4 class="name" id="sendDTMF"><span class="type-signature"></span>sendDTMF<span class="signature">(digit)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>>}</span></h4>
     
 
     
@@ -2391,7 +1932,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
         <tr>
             
-                <td class="name"><code>digits</code></td>
+                <td class="name"><code>digit</code></td>
             
 
             <td class="type">
@@ -2448,7 +1989,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1382">line 1382</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1323">line 1323</a>
     </li></ul></dd>
     
 
@@ -2458,6 +1999,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -2482,7 +2025,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
+<span class="param-type">Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>></span>
 
 
     </dd>
@@ -2495,7 +2038,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>conversation.media.sendDTMF('digits')</code></pre>
+    <pre class="prettyprint"><code>conversation.media.sendDTMF('digit')</code></pre>
 
 
 
@@ -2505,7 +2048,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
 
     
-    <h4 class="name" id="startRinging"><span class="type-signature"></span>startRinging<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    <h4 class="name" id="startRinging"><span class="type-signature"></span>startRinging<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>>}</span></h4>
     
 
     
@@ -2557,7 +2100,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1526">line 1526</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1398">line 1398</a>
     </li></ul></dd>
     
 
@@ -2567,6 +2110,8 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
 
     
 </dl>
+
+
 
 
 
@@ -2591,7 +2136,7 @@ possible values for direction "both", "send_only", "receive_only", "none", true 
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
+<span class="param-type">Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>></span>
 
 
     </dd>
@@ -2625,7 +2170,7 @@ console.log("ringing");
     
 
     
-    <h4 class="name" id="stopRinging"><span class="type-signature"></span>stopRinging<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    <h4 class="name" id="stopRinging"><span class="type-signature"></span>stopRinging<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>>}</span></h4>
     
 
     
@@ -2677,7 +2222,7 @@ console.log("ringing");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1561">line 1561</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1433">line 1433</a>
     </li></ul></dd>
     
 
@@ -2687,6 +2232,8 @@ console.log("ringing");
 
     
 </dl>
+
+
 
 
 
@@ -2711,7 +2258,7 @@ console.log("ringing");
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="Event.html">Event</a>></span>
+<span class="param-type">Promise.&lt;<a href="NXMEvent.html">NXMEvent</a>></span>
 
 
     </dd>
@@ -2727,14 +2274,14 @@ console.log("ringing");
     <pre class="prettyprint"><code>Send ringing event
 function stopRinging() {
   conversation.media.stopRinging()
-     .then(function(response) {
-      }).catch(function(error) {
+     .then((response) => {
+      }).catch((error) => {
           console.log(error);
       });
 }
 
-conversation.on('audio:ringing:stop', function(data)){
-console.log("ringing stopped");
+conversation.on('audio:ringing:stop', (data) => {
+ console.log("ringing stopped");
 }</code></pre>
 
 
@@ -2920,7 +2467,7 @@ console.log("ringing stopped");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1116">line 1116</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1056">line 1056</a>
     </li></ul></dd>
     
 
@@ -2930,6 +2477,8 @@ console.log("ringing stopped");
 
     
 </dl>
+
+
 
 
 
@@ -3209,7 +2758,7 @@ console.log("ringing stopped");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1085">line 1085</a>
+        <a href="modules_media.js.html">modules/media.js</a>, <a href="modules_media.js.html#line1025">line 1025</a>
     </li></ul></dd>
     
 
@@ -3219,6 +2768,8 @@ console.log("ringing stopped");
 
     
 </dl>
+
+
 
 
 
@@ -3280,13 +2831,13 @@ console.log("ringing stopped");
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Call.html">Call</a></li><li><a href="Conversation.html">Conversation</a></li><li><a href="ConversationClient.html">ConversationClient</a></li><li><a href="Event.html">Event</a></li><li><a href="ImageEvent.html">ImageEvent</a></li><li><a href="Media.html">Media</a></li><li><a href="Member.html">Member</a></li><li><a href="Recording.html">Recording</a></li><li><a href="TextEvent.html">TextEvent</a></li></ul><h3>Events</h3><ul><li><a href="Application.html#event:call:status:changed">call:status:changed</a></li><li><a href="Application.html#event:NXM-errors">NXM-errors</a></li><li><a href="Application.html#event:member:call">member:call</a></li><li><a href="Application.html#event:member:invited">member:invited</a></li><li><a href="Application.html#event:member:joined">member:joined</a></li><li><a href="Application.html#event:rtcstats:report">rtcstats:report</a></li><li><a href="Application.html#event:sync:progress">sync:progress</a></li><li><a href="Call.html#event:member:call:state">member:call:state</a></li><li><a href="Conversation.html#event:audio:mute:off">audio:mute:off</a></li><li><a href="Conversation.html#event:audio:mute:on">audio:mute:on</a></li><li><a href="Conversation.html#event:event:delete">delete</a></li><li><a href="Conversation.html#event:image">image</a></li><li><a href="Conversation.html#event:text">text</a></li><li><a href="Conversation.html#event:image:seen">image:seen</a></li><li><a href="Conversation.html#event:member:invited">member:invited</a></li><li><a href="Conversation.html#event:member:joined">member:joined</a></li><li><a href="Conversation.html#event:member:left">member:left</a></li><li><a href="Conversation.html#event:member:media">member:media</a></li><li><a href="Conversation.html#event:text:seen">text:seen</a></li><li><a href="Conversation.html#event:text:typing:off">text:typing:off</a></li><li><a href="Conversation.html#event:text:typing:on">text:typing:on</a></li><li><a href="ConversationClient.html#event:connecting">connecting</a></li><li><a href="ConversationClient.html#event:disconnect">disconnect</a></li><li><a href="ConversationClient.html#event:error">error</a></li><li><a href="ConversationClient.html#event:ready">ready</a></li><li><a href="ConversationClient.html#event:reconnect">reconnect</a></li><li><a href="ConversationClient.html#event:reconnecting">reconnecting</a></li><li><a href="Member.html#event:media:connection:fail">media:connection:fail</a></li><li><a href="Member.html#event:media:stream:on">media:stream:on</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NexmoApiError">NexmoApiError</a></li><li><a href="global.html#NexmoClientError">NexmoClientError</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Conversation.html">Conversation</a></li><li><a href="ConversationsPage.html">ConversationsPage</a></li><li><a href="EventsPage.html">EventsPage</a></li><li><a href="ImageEvent.html">ImageEvent</a></li><li><a href="Media.html">Media</a></li><li><a href="Member.html">Member</a></li><li><a href="NexmoClient.html">NexmoClient</a></li><li><a href="NXMCall.html">NXMCall</a></li><li><a href="NXMEvent.html">NXMEvent</a></li><li><a href="TextEvent.html">TextEvent</a></li></ul><h3>Events</h3><ul><li><a href="Application.html#event:call:status:changed">call:status:changed</a></li><li><a href="Application.html#event:NXM-errors">NXM-errors</a></li><li><a href="Application.html#event:member:call">member:call</a></li><li><a href="Application.html#event:member:invited">member:invited</a></li><li><a href="Application.html#event:member:joined">member:joined</a></li><li><a href="Application.html#event:rtcstats:report">rtcstats:report</a></li><li><a href="Application.html#event:sync:progress">sync:progress</a></li><li><a href="Conversation.html#event:audio:mute:off">audio:mute:off</a></li><li><a href="Conversation.html#event:audio:mute:on">audio:mute:on</a></li><li><a href="Conversation.html#event:event:delete">delete</a></li><li><a href="Conversation.html#event:image">image</a></li><li><a href="Conversation.html#event:text">text</a></li><li><a href="Conversation.html#event:image:seen">image:seen</a></li><li><a href="Conversation.html#event:member:call:status">member:call:status</a></li><li><a href="Conversation.html#event:member:invited">member:invited</a></li><li><a href="Conversation.html#event:member:joined">member:joined</a></li><li><a href="Conversation.html#event:member:left">member:left</a></li><li><a href="Conversation.html#event:member:media">member:media</a></li><li><a href="Conversation.html#event:text:seen">text:seen</a></li><li><a href="Conversation.html#event:text:typing:off">text:typing:off</a></li><li><a href="Conversation.html#event:text:typing:on">text:typing:on</a></li><li><a href="Member.html#event:media:connection:fail">media:connection:fail</a></li><li><a href="Member.html#event:media:stream:on">media:stream:on</a></li><li><a href="NexmoClient.html#event:connecting">connecting</a></li><li><a href="NexmoClient.html#event:disconnect">disconnect</a></li><li><a href="NexmoClient.html#event:error">error</a></li><li><a href="NexmoClient.html#event:ready">ready</a></li><li><a href="NexmoClient.html#event:reconnect">reconnect</a></li><li><a href="NexmoClient.html#event:reconnecting">reconnecting</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NexmoApiError">NexmoApiError</a></li><li><a href="global.html#NexmoClientError">NexmoClientError</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu May 30 2019 16:32:42 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Sep 27 2019 12:02:44 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

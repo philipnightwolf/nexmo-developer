@@ -101,7 +101,7 @@ RSpec.describe SidenavResolver do
 
     it 'finds the document and returns its frontmatter' do
       expect(Tasks).to receive(:document_meta).with(doc_path).and_call_original
-      frontmatter = subject.document_meta(doc_path)
+      frontmatter = subject.document_meta(root: '_documentation', path: doc_path)
 
       expect(frontmatter['title']).to eq('Overview')
       expect(frontmatter['meta_title']).to eq('Connect external services to your Nexmo account for the Messages API')

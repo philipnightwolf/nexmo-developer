@@ -2,11 +2,11 @@
 title: Overview
 ---
 
-# In-App Messaging Overview [Early Access]
+# In-App Messaging Overview
 
 Nexmo In-App Messaging enables you to build chat experience as part of your mobile and web app over websockets. The Nexmo Client SDKs offers functionality such as:
 
-* Conversation creation & management
+* Conversation creation and management
 * Text Messages
 * Image Messages
 * Typing Indicators
@@ -33,11 +33,11 @@ Conversation API concepts:
 product: conversation
 ```
 
-## Tutorials
+## Use Cases
 
-Nexmo Client SDK tutorials:
+Nexmo Client SDK use cases:
 
-```tutorials
+```use_cases
 product: client-sdk
 ```
 

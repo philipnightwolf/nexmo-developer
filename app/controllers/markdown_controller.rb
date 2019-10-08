@@ -9,23 +9,19 @@ class MarkdownController < ApplicationController
     redirect = Redirector.find(request.path.sub("/#{@language}", ''))
     return redirect_to redirect if redirect
 
-    @frontmatter = YAML.safe_load(document)
-
-    raise Errno::ENOENT if @frontmatter['redirect']
-
-    @document_title = @frontmatter['meta_title'] || @frontmatter['title']
-
-    @content = MarkdownPipeline.new({
-      code_language: @code_language,
-      current_user: current_user,
-      language: @language,
-    }).call(document)
+    # TODO: Fix this
+    if false#path_is_folder?
+      @frontmatter, @content = content_from_folder
+    else
+      @frontmatter, @content = content_from_file
+    end
 
     @sidenav = Sidenav.new(
       namespace: params[:namespace],
       language: @language,
       request_path: request.path,
       navigation: @navigation,
+      code_language: @code_language,
       product: @product
     )
 
@@ -85,11 +81,52 @@ class MarkdownController < ApplicationController
     return if params[:locale]
 
     redirect_to url_for(
-      document: "#{params[:document]}",
+      document: params[:document],
       controller: :markdown,
       action: :show,
       locale: I18n.locale,
       only_path: true
     ), status: :moved_permanently
+  end
+
+  # TODO: make this i18nable
+  def path_is_folder?
+    File.directory? "#{@namespace_path}/#{@document}"
+  end
+
+  # TODO: make this i18nable
+  def content_from_folder
+    path = "#{@namespace_path}/#{@document}"
+    frontmatter = YAML.safe_load(File.read("#{path}/.config.yml"))
+
+    @document_title = frontmatter['meta_title'] || frontmatter['title']
+
+    content = MarkdownPipeline.new({
+      code_language: @code_language,
+      current_user: current_user,
+    }).call(<<~HEREDOC
+      <h1>#{@document_title}</h1>
+
+      ```tabbed_folder
+      source: #{path}
+      ```
+    HEREDOC
+           )
+
+    [frontmatter, content]
+  end
+
+  def content_from_file
+    frontmatter = YAML.safe_load(document)
+
+    raise Errno::ENOENT if frontmatter['redirect']
+
+    content = MarkdownPipeline.new({
+      code_language: @code_language,
+      current_user: current_user,
+      language: @language,
+    }).call(document)
+
+    [frontmatter, content]
   end
 end

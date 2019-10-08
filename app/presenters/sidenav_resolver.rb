@@ -22,9 +22,19 @@ class SidenavResolver
     Dir.foreach(path) do |entry|
       next if entry.start_with?('.')
       next if IGNORED_PATHS.include? entry
+
+      # TODO: make this i18nable
       full_path = File.join(path, entry)
       if File.directory?(full_path)
-        data[:children] << directories(full_path, entry)
+        config = if tabbed_folder?(full_path)
+          YAML.safe_load(File.read("#{full_path}/.config.yml"))
+        end
+
+        if config && config['tabbed']
+          data[:children] << { title: config['title'], path: full_path, is_tabbed?: true }
+        else
+          data[:children] << directories(full_path, entry)
+        end
       else
         doc_path = DocFinder.find(root: @path, document: full_path, language: @language, strip_root_and_language: true)
         data[:children] << { title: entry, path: doc_path, is_file?: true }
@@ -34,8 +44,16 @@ class SidenavResolver
     # Do we have tasks for this product?
     product = path.sub(%r{\w+\/\w+\/}, '')
     if DocumentationConstraint.product_with_parent_list.include? product
-      if Tasks::TASKS[product]
-        data[:children] << { title: 'tasks', path: ".#{product}/tasks", children: TASKS[product] }
+      tasks = TutorialList.by_product(product)
+
+      # If we have use cases and tutorials, output them
+      if tasks['tutorials'].any?
+        data[:children] << { title: 'tutorials', path: "/#{product}/tutorials", children: tasks['tutorials'] }
+      end
+
+      if tasks['use_cases'].any?
+        # Otherwise show use_case as the top level
+        data[:children] << { title: 'use-cases', path: "/#{product}/use-cases", children: tasks['use_cases'] }
       end
     end
 
@@ -70,6 +88,8 @@ class SidenavResolver
   end
 
   def strip_namespace(path)
+    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/_use_cases/", '/use-cases/')
+    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/config/tutorials/", '/tutorials/')
     path.sub(%r{\w+\/\w+\/}, '')
   end
 
@@ -84,15 +104,19 @@ class SidenavResolver
 
   def navigation_weight_from_meta(item)
     return 1000 unless item[:is_file?]
-    document_meta(item[:path])['navigation_weight'] || 1000
+    document_meta(item)['navigation_weight'] || 1000
   end
 
-  def document_meta(path)
-    doc = DocFinder.find(root: @path, document: path, language: @language, strip_root_and_language: true)
+  def document_meta(item)
+    doc = DocFinder.find(root: item[:root] || @path, document: item[:path], language: @language, strip_root_and_language: true)
     Tasks.document_meta(doc)
   end
 
   private
+
+  def tabbed_folder?(full_path)
+    File.exist?("#{full_path}/.config.yml")
+  end
 
   def navigation_key(item)
     if item[:is_file?]

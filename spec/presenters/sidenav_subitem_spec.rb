@@ -10,7 +10,8 @@ RSpec.describe SidenavSubitem do
       Sidenav,
       navigation: :documentation,
       request_path: '/en/concepts/overview',
-      documentation?: true
+      documentation?: true,
+      code_language: nil
     )
   end
 
@@ -23,14 +24,12 @@ RSpec.describe SidenavSubitem do
     end
   end
 
-  describe '#file?' do
-    it { expect(subject.file?).to eq(true) }
+  describe '#show_link?' do
+    it { expect(subject.show_link?).to eq(true) }
   end
 
   describe '#collapsible?' do
-    it '' do
-      expect(subject.collapsible?).to eq(true)
-    end
+    it { expect(subject.collapsible?).to eq(true) }
   end
 
   describe '#url' do

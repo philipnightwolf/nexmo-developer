@@ -17,8 +17,8 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response).to redirect_to(documentation_path(locale: :en))
   end
 
-  it '/tutorials contains the expected text' do
-    get '/tutorials'
+  it '/use-cases contains the expected text' do
+    get '/use-cases'
     expect(response.body).to include('Get started with Nexmo with tutorials that will walk you through building a variety of practical applications')
   end
 
@@ -72,20 +72,6 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Our mission is to build a world-class open source documentation platform to help developers build connected products.')
   end
 
-  it '/team/technical-lead-developer-experience contains the expected text' do
-    career = Career.new({
-      title: 'Ruby on Rails Technical Lead',
-      published: true,
-      location: 'Remote',
-      description: 'This is a test description',
-    })
-
-    expect(Career).to receive_message_chain(:friendly, :find).with('technical-lead-developer-experience').and_return(career)
-    get '/team/technical-lead-developer-experience'
-    expect(response.body).to include('Ruby on Rails Technical Lead')
-    expect(response.body).to include('This is a test description')
-  end
-
   it 'markdown page without locale is redirected' do
     get '/voice/voice-api/guides/numbers'
 
@@ -126,6 +112,14 @@ RSpec.describe 'Smoke Tests', type: :request do
   it '/migrate/tropo contains the expected text' do
     get '/migrate/tropo/sms'
     expect(response.body).to include('Convert your SMS code from Tropo to Nexmo')
+  end
+
+  # Make sure all landing pages render
+  LandingPageConstraint.list.each do |name|
+    name = "/#{name}"
+    it "#{name} loads" do
+      get name
+    end
   end
 
   it '/api-errors contains the expected text' do

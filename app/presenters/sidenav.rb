@@ -1,12 +1,13 @@
 class Sidenav
-  attr_reader :request_path, :navigation, :product
+  attr_reader :request_path, :navigation, :product, :code_language
 
-  def initialize(request_path:, navigation:, product:, language:, namespace: nil)
-    @request_path = request_path
-    @navigation   = navigation
-    @product      = product
-    @language     = language
-    @namespace    = namespace
+  def initialize(request_path:, navigation:, product:, language:, code_language: nil, namespace: nil)
+    @request_path  = request_path
+    @navigation    = navigation
+    @product       = product
+    @language      = language
+    @code_language = code_language
+    @namespace     = namespace
 
     after_initialize!
   end

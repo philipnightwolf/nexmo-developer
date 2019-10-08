@@ -8,7 +8,7 @@ class TitleNormalizer
   end
 
   def normalize
-    if @folder[:is_task?]
+    if @folder[:is_task?] || @folder[:is_tabbed?]
       @folder[:title]
     elsif @folder[:is_file?]
       Tasks.document_meta(@folder[:path])['navigation'] || Tasks.document_meta(@folder[:path])['title']

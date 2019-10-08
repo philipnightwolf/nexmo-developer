@@ -32,7 +32,7 @@
 
     <div class="Nxd-header__sub__menu">
       <a href="/<%= I18n.locale %>/documentation" class="Vlt-tabs__link <%= @navigation == :documentation ? 'Vlt-tabs__link_active' : '' %>"><%= t('.documentation') %></a>
-      <a href="/tutorials" class="Vlt-tabs__link <%= @navigation == :tutorials ? 'Vlt-tabs__link_active' : '' %>"><%= t('.tutorials') %></a>
+      <a href="/use-cases" class="Vlt-tabs__link <%= @navigation == :use_case ? 'Vlt-tabs__link_active' : '' %>"><%= t('.use-cases') %></a>
       <a href="/api" class="Vlt-tabs__link <%= @navigation == :api ? 'Vlt-tabs__link_active' : '' %>"><%= t('.api-reference') %></a>
       <a href="/tools" class="Vlt-tabs__link <%= @navigation == :tools ? 'Vlt-tabs__link_active' : '' %>"><%= t('.sdks-and-tools') %></a>
       <a href="/community" class="Vlt-tabs__link <%= @navigation == :community ? 'Vlt-tabs__link_active' : '' %>"><%= t('.community') %></a>
@@ -41,7 +41,7 @@
 
     <% if search_enabled? %>
       <%= form_tag '/search' do %>
-        <div id="SearchComponent" key="SearchComponent">
+        <div id="search-app">
           <input type="text" id="searchbox" name="query" placeholder="Search" name="query" autocomplete="off" value="<%= @search_term || '' %>">
         </div>
       <% end %>

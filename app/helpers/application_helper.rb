@@ -19,6 +19,8 @@ module ApplicationHelper
   end
 
   def path_to_url(path)
+    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/_use_cases/", '/use-cases/')
+    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/config/tutorials/", '/tutorials/')
     path.gsub(/.*#{@namespace_root}/, '').gsub('.md', '')
   end
 
@@ -33,8 +35,12 @@ module ApplicationHelper
   end
 
   def canonical_url
-    base_url = Rails.env.production? ? 'https://developer.nexmo.com' : request.base_url
-    canonical_path.prepend(base_url)
+    return @canonical_url if @canonical_url
+    canonical_path.prepend(canonical_base)
+  end
+
+  def canonical_base
+    Rails.env.production? ? 'https://developer.nexmo.com' : request.base_url
   end
 
   def dashboard_cookie(campaign)

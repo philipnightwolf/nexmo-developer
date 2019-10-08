@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.5'
+ruby '2.5.7'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -17,7 +17,7 @@ gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 4.1.20'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -54,7 +54,7 @@ gem 'rouge', '~> 2.0.7'
 gem 'banzai', '~> 0.1.2'
 
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser. Among Nokogiri's many features is the ability to search documents via XPath or CSS3 selectors.
-gem 'nokogiri', '~> 1.8.5'
+gem 'nokogiri', '~> 1.10.4'
 
 # Autoload dotenv in Rails.
 gem 'dotenv-rails', groups: %i[development test]
@@ -79,18 +79,6 @@ gem 'recaptcha', require: 'recaptcha/rails'
 
 # Implements the iCalendar specification (RFC-5545) in Ruby.
 gem 'icalendar', require: false
-
-# A parser for Open API specifications
-#
-# If using development copy uncomment:
-# gem 'oas_parser', path: '../oas_parser', require: 'oas_parser'
-#
-# Development & staging environments may use a dependency from a repo:
-#
-# gem 'oas_parser', github: 'Nexmo/oas_parser', branch: 'definition-path-methods'
-#
-# Otherwise use a published gem:
-gem 'oas_parser', '0.18.1'
 
 # Generate JSON strings from Ruby objects with flexible formatting options.
 gem 'neatjson'
@@ -125,9 +113,6 @@ gem 'groupdate', '3.2.0'
 # A configurable and documented Rails view helper for adding gravatars into your Rails application.
 gem 'gravatar_image_tag', '1.2.0'
 
-# FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.
-gem 'friendly_id', '5.2.3'
-
 # Boot large ruby/rails apps faster
 gem 'bootsnap', require: false
 
@@ -150,13 +135,22 @@ gem 'terminal-table'
 gem 'lograge'
 
 # Country picker for ActiveAdmin
+gem 'countries'
 gem 'country_select', '~> 4.0'
 
-gem 'nexmo-oas-renderer', '~> 0.3.5', require: false
+gem 'nexmo-oas-renderer', '~> 0.5.5', require: false
+
 gem 'smartling'
 
 # A/B Testing
 gem 'split', '~> 3.3.2', require: 'split/dashboard'
+
+gem 'greenhouse_io'
+
+# For truncating HTML strings
+gem 'truncato'
+
+gem 'redis'
 
 group :development, :test do
   gem 'awesome_print'
@@ -182,6 +176,10 @@ group :development do
   # Much nicer error experience, including repl
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
