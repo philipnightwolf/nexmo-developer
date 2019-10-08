@@ -22,6 +22,8 @@ Use case examples:
 * Invoice reconciliation - compare your usage data with the invoice you have received
 * Monitoring & analytics - Add CDR data to your business intelligence or analytics system to correlate it with other events
 
+> The Reports API Beta is available free of charge to all customers until the 1st of March 2020. Once the beta period is over, a free version of the API will be available (max 20 calls per month, per API key). Unlimited API calls will still be available on the Enterprise plan
+
 ## Features
 
 - Variety of filters - query exactly the data you need
