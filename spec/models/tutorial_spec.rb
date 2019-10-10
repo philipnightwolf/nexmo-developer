@@ -51,9 +51,9 @@ RSpec.describe Tutorial, type: :model do
         'description' => 'Description here',
         'products' => ['demo'],
       }
-      expect(DocFinder).to receive(:find).
-        with(root: 'config/tutorials', document: 'example-tutorial', language: :en, format: 'yml').
-        and_return(path)
+      expect(DocFinder).to receive(:find)
+        .with(root: 'config/tutorials', document: 'example-tutorial', language: :en, format: 'yml')
+        .and_return(path)
       expect(File).to receive(:read).with(path).and_return(config.to_yaml)
 
       tutorial = described_class.load('example-tutorial', 'introduction')
@@ -222,9 +222,9 @@ def create_example_config(intro = false, conclusion = false)
     include_introduction: intro,
     include_conclusion: conclusion
   )
-  allow(DocFinder).to receive(:find).
-    with(root: 'config/tutorials', document: 'example-tutorial', language: :en, format: 'yml').
-    and_return(path)
+  allow(DocFinder).to receive(:find)
+    .with(root: 'config/tutorials', document: 'example-tutorial', language: :en, format: 'yml')
+    .and_return(path)
 
   create_application_content
   create_outbound_call_content

@@ -49,11 +49,10 @@ class DocFinder
   end
 
   def self.non_linkable(root:, language:, document:, product: nil, format: nil)
+    key = build_key(root: root, product: product, document: document, format: format)
     if root.starts_with?('app/views')
-      key = build_key(root: root, product: product, document: document, format: format)
       @dictionary.fetch(key) && key
     else
-      key = build_key(root: root, product: product, document: document, format: format)
       available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
       build_doc_path(root, key, available_language)
     end

@@ -90,11 +90,9 @@ class MarkdownController < ApplicationController
   end
 
   def path_is_folder?
-    begin
-      folder_config_path
-    rescue DocFinder::MissingDoc
-      false
-    end
+    folder_config_path
+  rescue DocFinder::MissingDoc
+    false
   end
 
   def folder_config_path

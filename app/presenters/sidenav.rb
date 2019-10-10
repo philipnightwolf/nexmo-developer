@@ -1,6 +1,7 @@
 class Sidenav
   attr_reader :request_path, :navigation, :product, :code_language
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(request_path:, navigation:, product:, language:, code_language: nil, namespace: nil)
     @request_path  = request_path
     @navigation    = navigation
@@ -11,6 +12,7 @@ class Sidenav
 
     after_initialize!
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def nav_items
     @nav_items ||= items.map do |item|

@@ -26,8 +26,8 @@ class SidenavResolver
       full_path = File.join(path, entry)
       if File.directory?(full_path)
         config = if tabbed_folder?(full_path)
-          YAML.safe_load(File.read("#{full_path}/.config.yml"))
-        end
+                   YAML.safe_load(File.read("#{full_path}/.config.yml"))
+                 end
 
         if config && config['tabbed']
           data[:children] << { title: config['title'], path: full_path, is_tabbed?: true }
@@ -87,8 +87,8 @@ class SidenavResolver
   end
 
   def strip_namespace(path)
-    path = path.gsub('.yml', '').sub("_use_cases/", 'use-cases/')
-    path = path.gsub('.yml', '').sub("config/tutorials/", '/tutorials/')
+    path = path.gsub('.yml', '').sub('_use_cases/', 'use-cases/')
+    path = path.gsub('.yml', '').sub('config/tutorials/', '/tutorials/')
     path.sub(%r{\w+\/\w+\/}, '')
   end
 

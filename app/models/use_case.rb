@@ -63,7 +63,7 @@ class UseCase
         products: frontmatter['products'].split(',').map(&:strip),
         languages: frontmatter['languages'] || [],
         document_path: document_path,
-        root: '_use_cases'
+        root: '_use_cases',
       })
     end
   end

@@ -27,7 +27,7 @@ class SidenavSubitem < SidenavItem
 
   def build_url
     if @folder[:path].starts_with?('config/tutorials')
-      url = url_for(
+      url_for(
         tutorial_name: Navigation.new(@folder).path_to_url,
         controller: :tutorial,
         action: :index,

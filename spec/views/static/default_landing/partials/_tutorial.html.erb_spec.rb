@@ -17,16 +17,16 @@ RSpec.describe 'rendering _tutorial landing page partial' do
 
     it 'renders correctly with valid data and an external_link defined' do
       tutorial = <<~HEREDOC
-      ---
-      title: This is a sample title
-      external_link: https://sample.url/path/to/link/
-      image_url: https://sample.url/path/to/image
-      description: This is a sample description
-      products:
-        - sms/messaging
-      languages:
-      - ruby
-      ---
+        ---
+        title: This is a sample title
+        external_link: https://sample.url/path/to/link/
+        image_url: https://sample.url/path/to/image
+        description: This is a sample description
+        products:
+          - sms/messaging
+        languages:
+        - ruby
+        ---
       HEREDOC
       expect(File).to receive(:read).and_return(tutorial)
 
@@ -40,15 +40,15 @@ RSpec.describe 'rendering _tutorial landing page partial' do
 
     it 'renders correctly with valid data and no external_link defined' do
       tutorial = <<~HEREDOC
-      ---
-      title: This is a sample title
-      image_url: https://sample.url/path/to/image
-      description: This is a sample description
-      products:
-        - sms/messaging
-      languages:
-      - ruby
-      ---
+        ---
+        title: This is a sample title
+        image_url: https://sample.url/path/to/image
+        description: This is a sample description
+        products:
+          - sms/messaging
+        languages:
+        - ruby
+        ---
       HEREDOC
       expect(File).to receive(:read).and_return(tutorial)
 
@@ -62,17 +62,6 @@ RSpec.describe 'rendering _tutorial landing page partial' do
   end
 
   it 'raises an error if name key is not provided' do
-    tutorial = <<~HEREDOC
-      ---
-      title: This is a sample title
-      image_url: https://sample.url/path/to/image
-      description: This is a sample description
-      products:
-        - sms/messaging
-      languages:
-      - ruby
-      ---
-    HEREDOC
     expect { render partial: '/static/default_landing/partials/tutorial.html.erb' }.to raise_error("Missing 'name' key in tutorial landing page block")
   end
 end
