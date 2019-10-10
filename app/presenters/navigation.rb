@@ -5,7 +5,7 @@ class Navigation
   OVERRIDES     = NAVIGATION['navigation_overrides']
 
   def initialize(folder)
-    @path = folder.fetch(:path)
+    @folder = folder
   end
 
   def options
@@ -15,6 +15,11 @@ class Navigation
   end
 
   def path_to_url
-    @path.sub(%r{^\w+\/\w+\/}, '').gsub('.md', '')
+    if @folder[:is_task?]
+      path = @folder[:path].sub(@folder[:root], '')
+      path.sub(%r{^/\w+\/}, '').chomp('.yml')
+    else
+      @folder[:path].sub(%r{^\w+\/\w+\/}, '').chomp('.md')
+    end
   end
 end

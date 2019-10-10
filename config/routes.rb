@@ -33,8 +33,8 @@ Rails.application.routes.draw do
   get '/stats', to: 'dashboard#stats'
   get '/stats/summary', to: 'dashboard#stats_summary'
 
-  get '/use-cases/(:code_language)', to: 'use_case#index', constraints: CodeLanguage.route_constraint
-  get '/use-cases/*document(/:code_language)', to: 'use_case#show', constraints: CodeLanguage.route_constraint
+  get '(/:locale)/use-cases/(:code_language)', to: 'use_case#index', constraints: CodeLanguage.route_constraint
+  get '(/:locale)/use-cases/*document(/:code_language)', to: 'use_case#show', constraints: CodeLanguage.route_constraint
 
   get '/*product/use-cases(/:code_language)', to: 'use_case#index', constraints: lambda { |request|
     products = DocumentationConstraint.product_with_parent_list
@@ -87,10 +87,10 @@ Rails.application.routes.draw do
   end
 
   get '/task/(*tutorial_step)', to: 'tutorial#single'
-  get '/(:product)/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
-  get '/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
-  get '/(:product)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: DocumentationConstraint.documentation
-  get '/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: CodeLanguage.route_constraint
+  get '(/:locale)/(:product)/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
+  get '(/:locale)/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
+  get '(/:locale)/(:product)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: DocumentationConstraint.documentation
+  get '(/:locale)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: CodeLanguage.route_constraint
 
   scope '(/:locale)' do
     get '/*product/api-reference', to: 'markdown#api'

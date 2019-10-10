@@ -23,7 +23,6 @@ class SidenavResolver
       next if entry.start_with?('.')
       next if IGNORED_PATHS.include? entry
 
-      # TODO: make this i18nable
       full_path = File.join(path, entry)
       if File.directory?(full_path)
         config = if tabbed_folder?(full_path)
@@ -88,8 +87,8 @@ class SidenavResolver
   end
 
   def strip_namespace(path)
-    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/_use_cases/", '/use-cases/')
-    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/config/tutorials/", '/tutorials/')
+    path = path.gsub('.yml', '').sub("_use_cases/", 'use-cases/')
+    path = path.gsub('.yml', '').sub("config/tutorials/", '/tutorials/')
     path.sub(%r{\w+\/\w+\/}, '')
   end
 

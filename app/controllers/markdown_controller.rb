@@ -9,8 +9,7 @@ class MarkdownController < ApplicationController
     redirect = Redirector.find(request.path.sub("/#{@language}", ''))
     return redirect_to redirect if redirect
 
-    # TODO: Fix this
-    if false#path_is_folder?
+    if path_is_folder?
       @frontmatter, @content = content_from_folder
     else
       @frontmatter, @content = content_from_file
@@ -21,7 +20,7 @@ class MarkdownController < ApplicationController
       language: @language,
       request_path: request.path,
       navigation: @navigation,
-      code_language: @code_language,
+      code_language: params[:code_language],
       product: @product
     )
 
@@ -85,19 +84,32 @@ class MarkdownController < ApplicationController
       controller: :markdown,
       action: :show,
       locale: I18n.locale,
-      only_path: true
+      only_path: true,
+      product: params[:product]
     ), status: :moved_permanently
   end
 
-  # TODO: make this i18nable
   def path_is_folder?
-    File.directory? "#{@namespace_path}/#{@document}"
+    begin
+      folder_config_path
+    rescue DocFinder::MissingDoc
+      false
+    end
   end
 
-  # TODO: make this i18nable
+  def folder_config_path
+    DocFinder.find(
+      root: root_folder,
+      document: "#{params[:document]}/.config.yml",
+      language: @language,
+      product: params[:product],
+      code_language: params[:code_language]
+    )
+  end
+
   def content_from_folder
-    path = "#{@namespace_path}/#{@document}"
-    frontmatter = YAML.safe_load(File.read("#{path}/.config.yml"))
+    frontmatter = YAML.safe_load(File.read(folder_config_path))
+    path = folder_config_path.chomp('/.config.yml')
 
     @document_title = frontmatter['meta_title'] || frontmatter['title']
 

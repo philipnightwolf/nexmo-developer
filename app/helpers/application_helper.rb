@@ -18,12 +18,6 @@ module ApplicationHelper
     end
   end
 
-  def path_to_url(path)
-    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/_use_cases/", '/use-cases/')
-    path = path.to_s.gsub('.yml', '').gsub("#{Rails.root}/config/tutorials/", '/tutorials/')
-    path.gsub(/.*#{@namespace_root}/, '').gsub('.md', '')
-  end
-
   def show_canonical_meta?
     return true if params[:code_language].present?
     return true if Rails.env.production? && request.base_url != 'https://developer.nexmo.com'

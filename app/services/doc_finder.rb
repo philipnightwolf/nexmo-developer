@@ -1,4 +1,6 @@
 class DocFinder
+  class MissingDoc < StandardError; end
+
   EXCLUSIONS = ['.', '..', I18n.default_locale.to_s].freeze
 
   class_attribute :dictionary
@@ -12,23 +14,27 @@ class DocFinder
     if strip_root_and_language
       document = strip_root_and_language(root: root, language: "(#{language}|#{I18n.default_locale})", document: document)
     end
-    if code_language.present?
-      linkable_code_language(
-        root: root,
-        language: language,
-        product: product,
-        document: document,
-        code_language: code_language,
-        format: format
-      )
-    else
-      non_linkable(
-        root: root,
-        language: language,
-        product: product,
-        document: document,
-        format: format
-      )
+    begin
+      if code_language.present?
+        linkable_code_language(
+          root: root,
+          language: language,
+          product: product,
+          document: document,
+          code_language: code_language,
+          format: format
+        )
+      else
+        non_linkable(
+          root: root,
+          language: language,
+          product: product,
+          document: document,
+          format: format
+        )
+      end
+    rescue KeyError => e
+      raise MissingDoc, e.message
     end
   end
 
@@ -44,7 +50,8 @@ class DocFinder
 
   def self.non_linkable(root:, language:, document:, product: nil, format: nil)
     if root.starts_with?('app/views')
-      build_key(root: root, product: product, document: document, format: format)
+      key = build_key(root: root, product: product, document: document, format: format)
+      @dictionary.fetch(key) && key
     else
       key = build_key(root: root, product: product, document: document, format: format)
       available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
@@ -84,7 +91,7 @@ class DocFinder
         end
       else
         path_with_locale = "#{path}/#{I18n.default_locale}"
-        Dir["#{path_with_locale}/**/*.*"].each do |file|
+        Dir["#{path_with_locale}/**/{*.*,.config.yml}"].each do |file|
           key = "#{path}/#{file.gsub("#{path_with_locale}/", '')}"
           @dictionary[key][I18n.default_locale.to_s] = I18n.default_locale.to_s
         end
@@ -95,7 +102,7 @@ class DocFinder
   def self.load_languages
     configuration.paths.each do |path|
       Dir.foreach(path).reject { |d| EXCLUSIONS.include? d }.each do |language|
-        Dir.glob("#{path}/#{language}/**/*.*").each do |file|
+        Dir.glob("#{path}/#{language}/**/{*.*,.config.yml}").each do |file|
           doc_name = strip_root_and_language(root: path, language: language, document: file)
           key = "#{path}/#{doc_name}"
           @dictionary[key][language] = language

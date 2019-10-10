@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   rescue_from Errno::ENOENT, with: :not_found
+  rescue_from DocFinder::MissingDoc, with: :not_found
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   protect_from_forgery with: :exception
 
@@ -14,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   def not_found
-    redirect = Redirector.find(request.path)
+    redirect = Redirector.find(request.path.sub("/#{I18n.locale}", ''))
     if redirect
       redirect_to redirect
     else

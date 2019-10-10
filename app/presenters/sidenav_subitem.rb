@@ -15,21 +15,42 @@ class SidenavSubitem < SidenavItem
 
   def url
     @url ||= begin
-      if documentation?
-        url = url_for(
-          document: Navigation.new(@folder).path_to_url,
-          controller: :markdown,
-          action: :show,
-          locale: I18n.locale,
-          only_path: true
-        )
-        url = "/#{@folder[:product]}#{url}" if @folder[:is_task?]
-        url
-      elsif @folder[:external_link]
+      if @folder[:external_link]
         @folder[:external_link]
+      elsif documentation?
+        build_url
       else
         "/#{Navigation.new(@folder).path_to_url}"
       end
+    end
+  end
+
+  def build_url
+    if @folder[:path].starts_with?('config/tutorials')
+      url = url_for(
+        tutorial_name: Navigation.new(@folder).path_to_url,
+        controller: :tutorial,
+        action: :index,
+        locale: I18n.locale,
+        product: @folder[:product],
+        only_path: true
+      )
+    else
+      url_for(
+        document: Navigation.new(@folder).path_to_url,
+        controller: controller,
+        action: :show,
+        locale: I18n.locale,
+        only_path: true
+      )
+    end
+  end
+
+  def controller
+    if @folder[:path].starts_with?('_documentation')
+      :markdown
+    elsif @folder[:path].starts_with?('_use_cases')
+      :use_case
     end
   end
 
