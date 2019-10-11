@@ -106,6 +106,6 @@ class TutorialController < ApplicationController
   def check_tutorial_step
     # If we don't have a current tutorial step, redirect to the first available page
     return if @tutorial_step
-    redirect_to "/#{I18n.locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.first_step}"
+    redirect_to "/#{I18n.default_locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.first_step}"
   end
 end

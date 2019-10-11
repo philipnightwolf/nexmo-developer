@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   get '/task/(*tutorial_step)', to: 'tutorial#single'
   get '(/:locale)/(:product)/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
   get '(/:locale)/tutorials', to: 'tutorial#list', constraints: DocumentationConstraint.documentation
+  get '/(:product)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: DocumentationConstraint.documentation
   get '(/:locale)/(:product)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: DocumentationConstraint.documentation
   get '(/:locale)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: CodeLanguage.route_constraint
 

@@ -7,12 +7,12 @@
     <div class="Vlt-grid">
       <div class="Vlt-col">
         <% if @tutorial.previous_step %>
-          <a class="Vlt-btn Vlt-btn--secondary" href="<%= "/#{I18n.locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.previous_step['path']}" %>"> &laquo; Previous</a>
+          <a class="Vlt-btn Vlt-btn--secondary" href="<%= "/#{I18n.default_locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.previous_step['path']}" %>"> &laquo; Previous</a>
         <% end %>
       </div>
       <div class="Vlt-col Vlt-right">
         <% if @tutorial.next_step %>
-          <a class="Vlt-btn Vlt-btn--secondary" href="<%= "/#{I18n.locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.next_step['path']}" %>">Next &raquo;</a>
+          <a class="Vlt-btn Vlt-btn--secondary" href="<%= "/#{I18n.default_locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{@tutorial.next_step['path']}" %>">Next &raquo;</a>
         <% end %>
       </div>
      </div>
@@ -36,7 +36,7 @@
               <span class="Vlt-number <%= t['is_active'] ? 'Vlt-bg-blue': 'Vlt-bg-grey' %>" style="margin:0"><%= i+1 %></span>
                 </div>
               <div class="Vlt-col Vlt-col--3of4 Nxd-step">
-                <a title="<%= t['description'] %>" href="<%= "/#{I18n.locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{t['path']}" %>"><%= t['title'] %></a>
+                <a title="<%= t['description'] %>" href="<%= "/#{I18n.default_locale}/#{@tutorial.current_product}/tutorials/#{@tutorial.name}/#{t['path']}" %>"><%= t['title'] %></a>
               </div>
             </div>
             <% end %>

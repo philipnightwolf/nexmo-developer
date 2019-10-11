@@ -9,7 +9,7 @@ class Tutorial
     end
 
     # TODO: make this work with I18n fallback
-    path = "#{self.class.task_content_path}/#{I18n.locale}/#{step_name}.md"
+    path = "#{self.class.task_content_path}/#{I18n.default_locale}/#{step_name}.md"
 
     raise "Invalid step: #{step_name}" unless File.exist? path
     File.read(path)
@@ -40,7 +40,7 @@ class Tutorial
     document_path = DocFinder.find(
       root: 'config/tutorials',
       document: name,
-      language: I18n.locale,
+      language: I18n.default_locale,
       format: 'yml'
     )
     config = YAML.safe_load(File.read(document_path))
@@ -64,7 +64,7 @@ class Tutorial
 
     prerequisites.map do |t|
       # TODO: make this work with I18n fallback
-      t_path = "#{task_content_path}/#{I18n.locale}/#{t}.md"
+      t_path = "#{task_content_path}/#{I18n.default_locale}/#{t}.md"
 
       raise "Prerequisite not found: #{t}" unless File.exist? t_path
       content = File.read(t_path)
@@ -84,7 +84,7 @@ class Tutorial
 
     tasks = tasks.map do |t|
       # TODO: make this work with I18n fallback
-      t_path = "#{task_content_path}/#{I18n.locale}/#{t}.md"
+      t_path = "#{task_content_path}/#{I18n.default_locale}/#{t}.md"
       raise "Subtask not found: #{t}" unless File.exist? t_path
       subtask_config = YAML.safe_load(File.read(t_path))
       {

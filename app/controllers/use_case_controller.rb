@@ -41,7 +41,7 @@ class UseCaseController < ApplicationController
   def show
     # Read document
     # TODO: make this work with I18n fallback
-    @document_path = "_use_cases/#{I18n.locale}/#{@document}.md"
+    @document_path = "_use_cases/#{I18n.default_locale}/#{@document}.md"
     document = File.read("#{Rails.root}/#{@document_path}")
 
     # Parse frontmatter

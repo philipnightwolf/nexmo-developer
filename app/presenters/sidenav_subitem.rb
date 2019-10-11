@@ -56,7 +56,7 @@ class SidenavSubitem < SidenavItem
 
   def active?
     if navigation == :tutorials
-      active_path.starts_with?(url)
+      active_path.starts_with?(url) || active_path.starts_with?(url.sub("/#{I18n.locale}", ''))
     else
       url == active_path
     end
