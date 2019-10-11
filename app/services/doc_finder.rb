@@ -3,10 +3,9 @@ class DocFinder
 
   EXCLUSIONS = ['.', '..', I18n.default_locale.to_s].freeze
 
-  class_attribute :dictionary
-
   class << self
-    attr_accessor :configuration
+    mattr_accessor :paths
+    mattr_accessor :dictionary
   end
 
   # rubocop:disable Metrics/ParameterLists
@@ -42,18 +41,18 @@ class DocFinder
     key = [
       build_key(root: root, product: product, document: "#{document}/#{code_language}", format: format),
       build_key(root: root, product: product, document: document, format: format),
-    ].select { |k| @dictionary.key?(k) }.first
+    ].select { |k| dictionary.key?(k) }.first
 
-    available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
+    available_language = dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
     build_doc_path(root, key, available_language)
   end
 
   def self.non_linkable(root:, language:, document:, product: nil, format: nil)
     key = build_key(root: root, product: product, document: document, format: format)
     if root.starts_with?('app/views')
-      @dictionary.fetch(key) && key
+      dictionary.fetch(key) && key
     else
-      available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
+      available_language = dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
       build_doc_path(root, key, available_language)
     end
   end
@@ -73,38 +72,38 @@ class DocFinder
   end
 
   def self.configure
-    @dictionary = Hash.new { |hash, key| hash[key] = {} }
-    @configuration ||= Configuration.new
+    self.paths = []
+    self.dictionary = Hash.new { |hash, key| hash[key] = {} }
 
-    yield(configuration)
+    yield(self)
 
     load_english
     load_languages
   end
 
   def self.load_english
-    configuration.paths.each do |path|
+    paths.each do |path|
       if path.starts_with?('app/views')
         Dir["#{path}/**/*.*"].each do |file|
-          @dictionary[file][I18n.default_locale.to_s] = I18n.default_locale.to_s
+          dictionary[file][I18n.default_locale.to_s] = I18n.default_locale.to_s
         end
       else
         path_with_locale = "#{path}/#{I18n.default_locale}"
         Dir["#{path_with_locale}/**/{*.*,.config.yml}"].each do |file|
           key = "#{path}/#{file.gsub("#{path_with_locale}/", '')}"
-          @dictionary[key][I18n.default_locale.to_s] = I18n.default_locale.to_s
+          dictionary[key][I18n.default_locale.to_s] = I18n.default_locale.to_s
         end
       end
     end
   end
 
   def self.load_languages
-    configuration.paths.each do |path|
+    paths.each do |path|
       Dir.foreach(path).reject { |d| EXCLUSIONS.include? d }.each do |language|
         Dir.glob("#{path}/#{language}/**/{*.*,.config.yml}").each do |file|
           doc_name = strip_root_and_language(root: path, language: language, document: file)
           key = "#{path}/#{doc_name}"
-          @dictionary[key][language] = language
+          dictionary[key][language] = language
         end
       end
     end
@@ -112,13 +111,5 @@ class DocFinder
 
   def self.strip_root_and_language(root:, language:, document:)
     document.sub(%r{#{root}\/}, '').sub(%r{#{language}\/}, '')
-  end
-
-  class Configuration
-    attr_accessor :paths
-
-    def initialize
-      @paths = []
-    end
   end
 end
