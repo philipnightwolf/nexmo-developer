@@ -93,6 +93,7 @@ Rails.application.routes.draw do
   get '(/:locale)/(:product)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: DocumentationConstraint.documentation
   get '(/:locale)/tutorials/(:tutorial_name)(/*tutorial_step)(/:code_language)', to: 'tutorial#index', constraints: CodeLanguage.route_constraint
 
+  get '/*product/api-reference', to: 'markdown#api'
   scope '(/:locale)' do
     get '/*product/api-reference', to: 'markdown#api'
   end
