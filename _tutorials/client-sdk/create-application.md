@@ -21,6 +21,6 @@ Make a note of the generated Application ID, as you'll need it in the future. Yo
 
 This command also creates a private key `private.key` in your current directory, which will be used to generate authentication credentials for your application.
 
-This command also creates two webhooks that need to be set: the answer and event webhooks. Nexmo will send a request to the answer webhook when a call is placed or received, and will send useful information to the event webhook over the lifetime of the call.
+This command also configures the answer and event webhook endpoints. Nexmo makes a request to the answer webhook when a call is placed or received, and sends useful information to the event webhook over the lifetime of the call.
 
 Any requests that Nexmo makes to these URLs must be acknowledged by returning a HTTP `200` or `204` response.
