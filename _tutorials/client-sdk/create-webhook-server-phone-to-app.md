@@ -9,7 +9,7 @@ You will need to create a webhook server. When the inbound call comes into Nexmo
 
 Create a `server.js` file and add the code for the server:
 
-> **NOTE:** Paste in your Nexmo number and your user name to the code below. The username is the username you used in creating the user JWT in the earlier step.
+> **NOTE:** Paste in your Nexmo number and your user name to the code below. The username is the one you created a JWT for in a previous step.
 
 ``` javascript
 'use strict';
