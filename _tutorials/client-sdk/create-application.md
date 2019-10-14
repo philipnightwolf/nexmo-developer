@@ -17,7 +17,7 @@ nexmo app:create "My Client SDK App" https://abcd1234.ngrok.io/webhooks/answer h
 
 Make a note of the generated Application ID, as you'll need it in the future. You can also check this in the [Nexmo Dashboard](https://dashboard.nexmo.com/voice/your-applications).
 
-![Nexmo Developer Dashboard Applications screenshot]( /assets/screenshots/tutorials/app-to-phone/nexmo-dashboard-applications.png "Nexmo Developer Dashboard Applications screenshot")
+![Nexmo Developer Dashboard Applications screenshot](/assets/screenshots/tutorials/app-to-phone/nexmo-dashboard-applications.png "Nexmo Developer Dashboard Applications screenshot")
 
 This command also creates a private key `private.key` in your current directory, which will be used to generate authentication credentials for your application.
 

@@ -5,7 +5,7 @@ description: In this step you display any messages already sent as part of this 
 
 # Show the Message History
 
-You want your users to see all the messages in the Conversation. You can achieve this by handling the Conversation’s getEvents method (to retrieve messages sent and received before the current session started) and its text event (which alerts your application when a user sends a message).
+You want your users to see all the messages in the Conversation. You can achieve this by handling the Conversation’s `getEvents` method (to retrieve messages sent and received before the current session started) and its `text` event (which alerts your application when a user sends a message).
 
 Your application must inspect the event data sent to each handler to determine the message's sender and content and then append it to the list of messages.
 
