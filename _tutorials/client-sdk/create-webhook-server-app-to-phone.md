@@ -65,5 +65,5 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 The important parts of this code are in the `answer` webhook handler:
 
 1. Extraction of the destination number from the answer webhook query parameters.
-2. Check that the provided number is allowed to be dialed. This is important for preventing fraudulent use of your account.
+2. Check that the provided number is in the list of numbers you will allow calls to be forwarded to. This is important for preventing fraudulent use of your account.
 3. The dynamically built NCCO then forwards the call to the destination phone using a `connect` action.
