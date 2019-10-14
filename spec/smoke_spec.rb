@@ -73,8 +73,7 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Our mission is to build a world-class open source documentation platform to help developers build connected products.')
   end
 
-  # TODO: Fix this
-  xit 'markdown page without locale is redirected' do
+  it 'markdown page without locale is redirected' do
     get '/voice/voice-api/guides/numbers'
 
     expect(response).to redirect_to('/en/voice/voice-api/guides/numbers')

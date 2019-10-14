@@ -75,14 +75,6 @@ RSpec.describe DocFinder do
       )
     end
 
-    xcontext 'when the document is available in the given language' do
-      let(:language) { 'cn' }
-
-      it 'returns the path to the document in the given language' do
-        expect(subject).to eq('_documentation/cn/numbers/code-snippets/list-owned.md')
-      end
-    end
-
     context 'when the document is not available in the given language' do
       let(:language) { 'de' }
 
@@ -117,14 +109,6 @@ RSpec.describe DocFinder do
     context 'otherwise' do
       let(:root)     { '_documentation' }
       let(:document) { 'messages/external-accounts/overview.md' }
-
-      xcontext 'when the document is available in the given language' do
-        let(:language) { 'cn' }
-
-        it 'returns the path to the file' do
-          expect(subject).to eq('_documentation/cn/messages/external-accounts/overview.md')
-        end
-      end
 
       context 'when the document is not available in the given language' do
         let(:language) { 'de' }

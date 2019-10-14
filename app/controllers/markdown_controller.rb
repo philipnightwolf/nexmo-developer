@@ -79,14 +79,7 @@ class MarkdownController < ApplicationController
     return if params[:namespace]
     return if params[:locale]
 
-    redirect_to url_for(
-      document: params[:document],
-      controller: :markdown,
-      action: :show,
-      locale: I18n.locale,
-      only_path: true,
-      product: params[:product]
-    ), status: :moved_permanently
+    redirect_to "/#{I18n.locale}/#{params[:product]}/#{params[:document]}", status: :moved_permanently
   end
 
   def path_is_folder?
