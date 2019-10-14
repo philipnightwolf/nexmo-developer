@@ -5,7 +5,7 @@ description: In this step you learn how to create a suitable webhook server that
 
 # Create a webhook server
 
-You will need to create a webhook server. When the inbound call comes into Nexmo you can capture the originating number and use a dynamic NCCO to forward the call to the web application. This is achieved by using a `connect` action of type `app`. Note the call is forwarded to an authenticated user who represents the agent handling the inbound call.
+You will need to create a webhook server. When the inbound call comes into Nexmo you can capture the originating number and use a dynamic NCCO to forward the call to the web application. This is achieved by using a `connect` action of type `app`. The call is forwarded to an authenticated user who represents the agent handling the inbound call.
 
 Create a `server.js` file and add the code for the server:
 
