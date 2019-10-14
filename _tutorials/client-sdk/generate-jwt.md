@@ -5,7 +5,7 @@ description: In this step you learn how to generate a valid JWT for your Client 
 
 # Generate a JWT
 
-Authentication in the Client SDK is controlled by using JWTs, which contain the name of the user it identifies, the application ID it's valid for, and an access control list (ACL) to control that user's permissions. Then, it's signed using the `private.key` you saved earlier to prove that it's a valid token.
+The Client SDK uses [JWTs](/concepts/guides/authentication#json-web-tokens-jwt) for authentication. The JWT identifies the user name, the associated application ID and the permissions granted to the user. It is signed using your private key to prove that it is a valid token.
 
 > **NOTE**: We'll be creating a one-time use JWT on this page for testing. In production apps, your server should expose an endpoint that generates a JWT for each client request.
 
