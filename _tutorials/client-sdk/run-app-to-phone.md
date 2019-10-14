@@ -11,7 +11,7 @@ Run your application with `node server.js`, then visit [http://localhost:3000](h
 
 A text field and button is displayed on the page.
 
-Enter the number of your mobile phone into the text field in [E.164](../../../../concepts/guides/glossary#e-164-format) format (for example, `447700900000`) and then click the `Call` button.
+Enter the number of your mobile phone into the text field in [E.164](/concepts/guides/glossary#e-164-format) format (for example, `447700900000`) and then click the `Call` button.
 
 To see the webhook server’s log messages, switch to the terminal tab running your server.
 
