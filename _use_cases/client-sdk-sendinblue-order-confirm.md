@@ -1,0 +1,197 @@
+---
+title: Product Order Confirmation system with Nexmo Client SDK and Sendinblue 
+products: client-sdk
+description: How to build a product order confirmation system with Nexmo Client SDK and Sendinblue.
+languages: 
+    - Node
+---
+
+# Product Order Confirmation system with Nexmo Client SDK and Sendinblue
+
+## Before you begin
+
+It is assumed you have both a [Nexmo account](https://dashboard.nexmo.com/sign-in) and a [Sendinblue account](https://app.sendinblue.com/account/register), and associated API keys and secrets.
+
+## Overview
+
+In this use case you will learn how to build an order confirmation and support systemusing the Nexmo Client SDK and Sendinblue. This use case features two-way chatting with a support agent, and also the sending of an order confirmation email via Sendinblue.
+
+The scenario is as follows:
+
+1. A user creates an order. An order confirmation email is sent to the user via [Sendinblue](https://www.sendinblue.com). The order email contains a link the user can click to chat with a support agent about the order.
+
+2. A [custom event](/client-sdk/custom-events) is created when the confirmation email goes out. This is retained in the Conversation for that user.
+
+3. A chat screen is loaded that contains the current order data, and order and message history. The order and message history is stored in a Conversation associated with the user.
+
+4. Two way chat can then take place between the customer and a support agent.
+
+## Installation
+
+The following assumes you have the `git` and `npm` commands available on the command line.
+
+1. Install the Nexmo CLI:
+
+``` bash
+npm install nexmo-cli -g
+nexmo setup NEXMO_API_KEY NEXMO_API_SECRET
+```
+
+The latter command will update your `~/.nexmorc` file. On Windows this file is stored in your User directory, for example, `C:\Users\james\.nexmorc`.
+
+2. Clone the repo:
+
+``` bash
+git clone https://github.com/nexmo-community/sendinblue-use-case.git
+```
+
+3. Change into the cloned project directory.
+
+4. Install required npm modules:
+
+``` bash
+npm install
+```
+
+This installs required modules based on the `package.json` file.
+
+5. Copy `example.env` to `.env` in the project directory.
+
+6. Create a Nexmo application [interactively](/application/nexmo-cli#interactive-mode). The following command enters interactive mode:
+
+``` bash
+nexmo app:create
+```
+
+You can give your app a name and also select RTC capabilities. A private key will be written out to `private.key`.
+
+A file `.nexmo-app` is created in the project directory containing the Application ID and the private key. Make a note of the Application ID as you need this later.
+
+## Configuration
+
+Open the `.env` file in your project directory with an editor. Set the following information:
+
+``` bash
+NEXMO_APPLICATION_ID=
+NEXMO_API_KEY=
+NEXMO_API_SECRET=
+NEXMO_APPLICATION_PRIVATE_KEY_PATH=private.key
+CONVERSATION_ID=
+PORT=3000
+SENDINBLUE_API_KEY=
+SENDINBLUE_FROM_NAME=
+SENDINBLUE_FROM_EMAIL=
+SENDINBLUE_TO_NAME=
+SENDINBLUE_TO_EMAIL=
+SENDINBLUE_TEMPLATE_ID=
+```
+
+Add in your application ID from the installation section. You can obtain your API key and secret from the [Nexmo Dashboard](https://dashboard.nexmo.com).
+
+The private key file will typically be `private.key`.
+
+The Conversation ID is only used for testing purposes. You do not need to add it at this stage.
+
+### Sendinblue configuration
+
+You must have a Sendinblue API key.
+
+For testing this use case it is assumed you have Sendinblue "sender" information. This is the email address and name you are sending emails from. You will also want to specify a user name and email address that will receive the order confirmation emails. Usually this information would be available on a per-customer basis in the user database, but for testing convenience it is set in the environment file in this use case.
+
+You also need the ID of the email template you are using. The template is created in the Sendinblue UI. When you have created a template and activated it you can make a note of the ID as specified in the UI. This is the number that is used here.
+
+## Running the code
+
+There are several steps to running the demo.
+
+1. In the project directory start the server:
+
+``` bash
+npm start
+```
+
+This starts up the server using `node.js`.
+
+2. Create the support agent user with the following Curl command:
+
+```
+curl -d "username=agent" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/user
+```
+
+This creates the user 'agent'.
+
+> **IMPORTANT:** It is necessary to create the support agent before any other user in this simple demo.
+
+3. Create a customer user:
+
+```
+curl -d "username=user-123" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/user
+```
+
+This creates the user 'user-123'.
+
+You will notice from the server console logging that a conversation is also created for the user.
+
+4. Create a customer order:
+
+```
+curl -d "username=user-123" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/order
+```
+
+This creates an order for user 'user-123'. For simplicity this is a simple pre-defined order, rather than a shopping cart.
+
+This step will also generate a custom event of type `custom:order-confirm-event` contain the order details.
+
+In addition a confirmation email is sent via Sendinblue. This email contains a link the user would select to chat if they wanted support with order.
+
+5. Check you have received the order email! Go to the inbox defined in your configuration to read the confirmation email.
+
+6. Click the link in the email to log the customer into the chat screen.
+
+7. Log the agent into the chat. For this step it is recommended you additionally start an 'incognito' tab in your browser (or use a new browser instance).
+
+For simplicity the support agent logs into the chat using a method similar to the customer. You can just copy the link the client clicked on in the email, and change the username in the link to `agent`:
+
+```
+localhost:3000/chat/agent/CON-ID/ORDER-ID
+```
+
+The user and support agent can now engage in a two-way chat messaging session.
+
+## Exploring the code
+
+The main code files are `client.js` and `server.js`.
+
+The **server** implements a simple REST API for creating users and orders:
+
+1. `POST` on `/user` - creates a user. Username is passed in the body.
+2. `POST` on `/order` - creates an order. Username of the person creating an order is passed in the body.
+3. `GET` on `/chat/:username/:conversation_id/:order_id` - logs user or agent into chat room based on `username`.
+
+The client uses the Nexmo Client SDK. It performs the following main functions:
+
+1. Creates a `NexmoClient` instance.
+2. Logs the user into the Conversation based on a JWT generated by the server.
+3. Obtains the Conversation object.
+4. Registers event handlers for the message send button and `text` events.
+5. Provides a basic UI for displaying current order, order history and message history, as well as the ongoing chat.
+
+## Summary
+
+In this use case you have learned how to build an order confirmation and support system. The user receives an oeder confirmation email via Sendinblue. The user can then engage in two-way messaging with the support agent to discuss the order if required.
+
+## What's next?
+
+Some suggestions for improving the demo:
+
+* Improve the UI using CSS.
+* Add a more sophisticated ordering system. Perhaps each order would be a JSON snippet.
+* Add ability to [Click to call](/client-sdk/tutorials/app-to-phone/introduction) the support agent.
+* Send an SMS notification to the agent when the user joins the chat room.
+
+## Reference
+
+* [Sendinblue client library for Node](https://github.com/sendinblue/APIv3-nodejs-library)
+* [Sendinblue send transactional email](https://developers.sendinblue.com/docs/send-a-transactional-email)
+* Explore [Client SDK](/client-sdk/overview)
+* Explore [Conversation API](/conversation/overview)
