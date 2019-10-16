@@ -1,12 +1,12 @@
 ---
-title: Product Order Confirmation system with Nexmo Client SDK and Sendinblue 
+title: Order support system 
 products: client-sdk
-description: How to build a product order confirmation system with Nexmo Client SDK and Sendinblue.
+description: How to build a product order confirmation and support system with Nexmo Client SDK and Sendinblue.
 languages: 
     - Node
 ---
 
-# Product Order Confirmation system with Nexmo Client SDK and Sendinblue
+# Order support system
 
 ## Before you begin
 
