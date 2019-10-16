@@ -24,6 +24,7 @@
 "/application/code-snippets": "/application/code-snippets/create-application"
 "/voice/voice-api": "/voice/voice-api/overview"
 "/audit/api-reference": "/api/audit"
+"/client-sdk/in-app-voice/contact-center-overview": "/use-cases/contact-center-client-sdk"
 "/concepts": "/concepts/overview"
 "/concepts/guides/applications": "/application/overview"
 "/reports/api-reference": "/api/reports"
@@ -210,5 +211,3 @@
 "/tutorials/voice-call-websocket-python": "/use-cases/voice-call-websocket-python"
 "/account/subaccounts/tutorials": "/use-cases/using-subaccounts"
 "/account/guides/secret-management": "/account/secret-management/overview"
-"/use-cases/client-sdk-generate-test-credentials": "/client-sdk/setup/generate-test-credentials"
-"/use-cases/client-sdk-ios-in-app-messaging": "/client-sdk/in-app-messaging/guides/ios-in-app-messaging"
