@@ -12,10 +12,9 @@ class ApplicationController < ActionController::Base
   before_action :set_notices
   before_action :set_code_language
   before_action :set_feedback_author
-  before_action :set_locale
 
   def not_found
-    redirect = Redirector.find(request.path.sub("/#{I18n.locale}", ''))
+    redirect = Redirector.find(request.path)
     if redirect
       redirect_to redirect
     else
@@ -69,15 +68,5 @@ class ApplicationController < ActionController::Base
 
   def render_not_found
     render 'static/404', status: :not_found, formats: [:html]
-  end
-
-  def set_locale
-    I18n.locale = params[:locale]
-  rescue I18n::InvalidLocale
-    I18n.locale = I18n.default_locale
-  end
-
-  def set_language
-    @language = params[:locale] || I18n.default_locale
   end
 end

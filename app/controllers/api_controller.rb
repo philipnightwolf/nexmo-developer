@@ -1,5 +1,4 @@
 class ApiController < ApplicationController
-  before_action :set_language
   before_action :set_document
   before_action :set_navigation
 

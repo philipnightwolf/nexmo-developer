@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Markdown', type: :request do
   describe '#show' do
-    it 'redirects if locale is missing' do
-      get '/concepts/overview'
-
-      expect(response).to redirect_to('/en/concepts/overview')
-    end
-
     context 'with a namespace' do
       it 'responds 200 for product-lifecycle' do
         get '/product-lifecycle/beta'
@@ -30,7 +24,7 @@ RSpec.describe 'Markdown', type: :request do
 
     context 'when the file specifies a redirect' do
       it 'redirects' do
-        get '/en/client-sdk/sdk-documentation/ios/ios'
+        get '/client-sdk/sdk-documentation/ios/ios'
 
         expect(response).to redirect_to('/sdk/stitch/ios/')
       end

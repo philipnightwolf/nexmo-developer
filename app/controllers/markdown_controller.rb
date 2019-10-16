@@ -1,12 +1,10 @@
 class MarkdownController < ApplicationController
-  before_action :require_locale, only: :show
-  before_action :set_language
   before_action :set_navigation
   before_action :set_product
   before_action :set_tracking_cookie
 
   def show
-    redirect = Redirector.find(request.path.sub("/#{@language}", ''))
+    redirect = Redirector.find(request.path)
     return redirect_to redirect if redirect
 
     if path_is_folder?
@@ -17,7 +15,7 @@ class MarkdownController < ApplicationController
 
     @sidenav = Sidenav.new(
       namespace: params[:namespace],
-      language: @language,
+      language: I18n.locale,
       request_path: request.path,
       navigation: @navigation,
       code_language: params[:code_language],
@@ -33,7 +31,7 @@ class MarkdownController < ApplicationController
   end
 
   def api
-    redirect = Redirector.find(request.path.sub("/#{@language}", ''))
+    redirect = Redirector.find(request.path)
     if redirect
       redirect_to redirect
     else
@@ -60,7 +58,7 @@ class MarkdownController < ApplicationController
       DocFinder.find(
         root: root_folder,
         document: params[:document],
-        language: @language,
+        language: I18n.locale,
         product: params[:product],
         code_language: params[:code_language]
       )
@@ -75,13 +73,6 @@ class MarkdownController < ApplicationController
     end
   end
 
-  def require_locale
-    return if params[:namespace]
-    return if params[:locale]
-
-    redirect_to "/#{I18n.locale}/#{params[:product]}/#{params[:document]}", status: :moved_permanently
-  end
-
   def path_is_folder?
     folder_config_path
   rescue DocFinder::MissingDoc
@@ -92,7 +83,7 @@ class MarkdownController < ApplicationController
     DocFinder.find(
       root: root_folder,
       document: "#{params[:document]}/.config.yml",
-      language: @language,
+      language: I18n.locale,
       product: params[:product],
       code_language: params[:code_language]
     )
@@ -127,7 +118,7 @@ class MarkdownController < ApplicationController
     content = MarkdownPipeline.new({
       code_language: @code_language,
       current_user: current_user,
-      language: @language,
+      language: I18n.locale,
     }).call(document)
 
     [frontmatter, content]

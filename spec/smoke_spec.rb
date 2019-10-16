@@ -7,14 +7,9 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Everything you need to build connected applications with Nexmo')
   end
 
-  it '/en/documentation contains the expected text' do
-    get '/en/documentation'
-    expect(response.body).to include('Welcome to the Nexmo Developer Documentation')
-  end
-
-  it '/documentation gets redirected to the default locale /en/documentation' do
+  it '/documentation contains the expected text' do
     get '/documentation'
-    expect(response).to redirect_to(documentation_path(locale: :en))
+    expect(response.body).to include('Welcome to the Nexmo Developer Documentation')
   end
 
   it '/use-cases contains the expected text' do
@@ -73,24 +68,18 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Our mission is to build a world-class open source documentation platform to help developers build connected products.')
   end
 
-  it 'markdown page without locale is redirected' do
-    get '/voice/voice-api/guides/numbers'
-
-    expect(response).to redirect_to('/en/voice/voice-api/guides/numbers')
-  end
-
   it 'markdown page contains the expected text' do
-    get '/en/voice/voice-api/guides/numbers'
+    get '/voice/voice-api/guides/numbers'
     expect(response.body).to include('Numbers are a key concept to understand when working with the Nexmo Voice API. The following points should be considered before developing your Nexmo Application.')
   end
 
   it 'markdown page has default code_language' do
-    get '/en/voice/voice-api/code-snippets/connect-an-inbound-call'
+    get '/voice/voice-api/code-snippets/connect-an-inbound-call'
     expect(response.body).to include('li class="Vlt-tabs__link Vlt-tabs__link_active" aria-selected="true" data-language="node" data-language-type="languages" data-language-linkable="true"')
   end
 
   it 'markdown page respects code_language' do
-    get '/en/voice/voice-api/code-snippets/connect-an-inbound-call/php'
+    get '/voice/voice-api/code-snippets/connect-an-inbound-call/php'
     expect(response.body).to include('li class="Vlt-tabs__link Vlt-tabs__link_active" aria-selected="true" data-language="php" data-language-type="languages" data-language-linkable="true"')
     expect(response.body).not_to include('li class="Vlt-tabs__link Vlt-tabs__link_active" aria-selected="true" data-language="node" data-language-type="languages" data-language-linkable="true"')
   end

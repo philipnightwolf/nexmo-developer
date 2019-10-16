@@ -46,7 +46,7 @@ RSpec.describe UseCase, type: :model do
 
   describe '#path' do
     it 'returns a path' do
-      expect(described_class.all[0].path).to start_with('en/use-cases/')
+      expect(described_class.all[0].path).to start_with('/use-cases/')
     end
   end
 end

@@ -9,7 +9,7 @@ RSpec.describe SidenavSubitem do
     instance_double(
       Sidenav,
       navigation: :documentation,
-      request_path: '/en/concepts/overview',
+      request_path: '/concepts/overview',
       documentation?: true,
       code_language: nil
     )
@@ -34,7 +34,7 @@ RSpec.describe SidenavSubitem do
 
   describe '#url' do
     context 'for a document' do
-      it { expect(subject.url).to eq('/en/concepts/overview') }
+      it { expect(subject.url).to eq('/concepts/overview') }
     end
 
     context 'otherwise' do

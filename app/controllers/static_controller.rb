@@ -1,7 +1,4 @@
 class StaticController < ApplicationController
-  before_action :require_locale, only: :documentation
-  before_action :set_language, only: :documentation
-
   def default_landing
     yaml_name = request[:landing_page]
 
@@ -75,7 +72,7 @@ class StaticController < ApplicationController
       request_path: request.path,
       navigation: @navigation,
       product: @product,
-      language: @language
+      language: I18n.locale
     )
 
     render layout: 'documentation'
@@ -225,11 +222,5 @@ class StaticController < ApplicationController
     @careers = Greenhouse.careers
 
     render layout: 'page'
-  end
-
-  def require_locale
-    return if params[:namespace]
-
-    redirect_to documentation_path(locale: I18n.default_locale), status: :moved_permanently unless params[:locale]
   end
 end
