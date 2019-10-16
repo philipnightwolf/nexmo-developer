@@ -15,7 +15,7 @@ class TutorialController < ApplicationController
       @tutorials = TutorialList.all
     end
 
-    @document_title = 'Use Cases'
+    @document_title = 'Tutorials'
 
     @base_path = request.original_fullpath.chomp('/')
 

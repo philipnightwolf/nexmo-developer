@@ -8,7 +8,8 @@ class UseCase
 
   def path
     return external_link if external_link
-    "/use-cases/#{document_path.relative_path_from(UseCase.origin)}".gsub('.md', '')
+    path = document_path.relative_path_from(UseCase.origin).sub("#{I18n.locale}/", '')
+    "#{I18n.locale}/use-cases/#{path}".gsub('.md', '')
   end
 
   def subtitle

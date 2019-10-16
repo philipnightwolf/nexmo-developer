@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get '(/:locale)/use-cases/(:code_language)', to: 'use_case#index', constraints: CodeLanguage.route_constraint
   get '(/:locale)/use-cases/*document(/:code_language)', to: 'use_case#show', constraints: CodeLanguage.route_constraint
 
-  get '/*product/use-cases(/:code_language)', to: 'use_case#index', constraints: lambda { |request|
+  get '(/:locale)/*product/use-cases(/:code_language)', to: 'use_case#index', constraints: lambda { |request|
     products = DocumentationConstraint.product_with_parent_list
 
     # If there's no language in the URL it's an implicit match

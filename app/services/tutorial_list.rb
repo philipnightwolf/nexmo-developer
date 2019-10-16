@@ -35,6 +35,7 @@ class TutorialList
       tasks.push({
         root: 'config/tutorials',
         path: filename.gsub("#{Rails.root}/", ''),
+        filename: Pathname.new(filename).basename.to_s.chomp('.yml'),
         external_link: t['external_link'],
         title: t['title'],
         description: t['description'],
