@@ -191,6 +191,7 @@ Some suggestions for improving the demo:
 
 ## Reference
 
+* [Demo code repository on GitHub](https://github.com/nexmo-community/sendinblue-use-case)
 * [Sendinblue client library for Node](https://github.com/sendinblue/APIv3-nodejs-library)
 * [Sendinblue send transactional email](https://developers.sendinblue.com/docs/send-a-transactional-email)
 * Explore [Client SDK](/client-sdk/overview)
