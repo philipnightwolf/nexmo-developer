@@ -34,20 +34,25 @@ The following assumes you have the `git` and `npm` commands available on the com
 
 ``` bash
 npm install nexmo-cli -g
+```
+
+2. Initialize your credentials for use with the Nexmo CLI:
+
+``` bash
 nexmo setup NEXMO_API_KEY NEXMO_API_SECRET
 ```
 
-The latter command will update your `~/.nexmorc` file. On Windows this file is stored in your User directory, for example, `C:\Users\james\.nexmorc`.
+This will update your `~/.nexmorc` file. On Windows this file is stored in your User directory, for example, `C:\Users\James\.nexmorc`.
 
-2. Clone the repo:
+3. Clone the repo:
 
 ``` bash
 git clone https://github.com/nexmo-community/sendinblue-use-case.git
 ```
 
-3. Change into the cloned project directory.
+4. Change into the cloned project directory.
 
-4. Install required npm modules:
+5. Install required npm modules:
 
 ``` bash
 npm install
@@ -55,9 +60,9 @@ npm install
 
 This installs required modules based on the `package.json` file.
 
-5. Copy `example.env` to `.env` in the project directory.
+6. Copy `example.env` to `.env` in the project directory.
 
-6. Create a Nexmo application [interactively](/application/nexmo-cli#interactive-mode). The following command enters interactive mode:
+7. Create a Nexmo application [interactively](/application/nexmo-cli#interactive-mode). The following command enters interactive mode:
 
 ``` bash
 nexmo app:create
