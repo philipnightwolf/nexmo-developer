@@ -33,10 +33,21 @@ class SmartlingAPI
 
   def download_translated(filename:, locale:, type: :published)
     file_uri = file_uri(filename)
-    wrap_in_rescue { @client.download_translated(file_uri, locale, retrievalType: type) }
+    wrap_in_rescue do
+      response = @client.download_translated(file_uri, locale, retrievalType: type)
+      FileUtils.mkdir_p(storage_folder) unless File.exists?(storage_folder)
+      File.open("_documentation/#{locale}/#{file_uri}", 'w+') do |file|
+        file.write(I18n::SmartlingConverterFilter.call(response))
+      end
+    end
   end
 
   private
+
+  def storage_folder(locale, filename)
+    dir_path = Pathname.new(file_uri(filename)).dirname.to_s
+    "_documentation/#{locale}/#{dir_path}/"
+  end
 
   def file_uri(filename)
     filename.gsub(%r{_documentation\/[a-z]{2}\/}, '')
